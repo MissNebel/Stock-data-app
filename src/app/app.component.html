@@ -1,0 +1,80 @@
+<ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+</ngb-datepicker>
+
+<ng-template #t let-date let-focused="focused">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.range]="isRange(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>All</a>
+    <ng-template ngbNavContent>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Close/Last</th>
+            <th scope="col">Volume</th>
+            <th scope="col">Open</th>
+            <th scope="col">High</th>
+            <th scope="col">Low</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataArray; index as i">
+           
+            <td>{{ data.date }}</td>
+            <td>{{ data.closeLast }}</td>
+            <td>{{ data.volume }}</td>
+            <td>{{ data.open }}</td>
+            <td>{{ data.high }}</td>
+            <td>{{ data.low }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>longest bullish</a>
+    <ng-template ngbNavContent>
+      <div>
+        In Apple stock historical data the Close/Last price increased {{ longestBullish.length }} days in a row between {{ firstDay.date }} and {{ lastDay.date }}
+    </div>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Three</a>
+    <ng-template ngbNavContent>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Volume</th>
+            <th scope="col">Difference</th>
+            <th scope="col">High</th>
+            <th scope="col">Low</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of highestVolumeList">
+            <td>{{ data.date }}</td>
+            <td>{{ data.volume }}</td>
+            <td>{{ data.difference }}</td>
+            <td>{{ data.high }}</td>
+            <td>{{ data.low }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
