@@ -85,7 +85,6 @@ export class AppComponent implements OnInit {
 
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.filteredDataArray.length; i++) {
-      console.log(this.filteredDataArray[i].date);
       if (arr.length === 0) {
         arr.push(this.filteredDataArray[i]);
       }
@@ -130,11 +129,7 @@ export class AppComponent implements OnInit {
       }
       diff = difference(this.highestVolumeList[i].high, this.highestVolumeList[i].low);
       this.highestVolumeList[i].difference = diff;
-      console.log('volume');
       // tslint:disable-next-line:no-shadowed-variable
-      this.highestVolumeList.forEach(element => {
-        console.log(element);
-      });
     }
   }
 
